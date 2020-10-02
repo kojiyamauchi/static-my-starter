@@ -1,0 +1,48 @@
+<%
+props = {
+  title: 'Secondary Page | Static My Starter',
+  description : 'This is My Static Web Frontend Starter.',
+  ogpURL: 'Add OGP URL.',
+  ogpSitename: 'Add OGP Site Name.',
+  ogpTitle: 'Add OGP Title.',
+  ogpDescription: 'Add OGP Description.',
+  ogpImage: 'Add OGP Images File Path.',
+  cssPlugins: false,
+  cssCoreFile: 'secondary',
+  ecmaPolyfill: false,
+  ecmaModules: false,
+  ecmaCoreFile: 'core',
+  pages: 'secondary',
+  relativePath: '../'
+}
+%>
+<!DOCTYPE html>
+<html lang="ja">
+  <!-- Head -->
+  <head>
+    <%- include ('../components/common/_head') %>
+    <%- include ('../components/common/_css') %>
+  </head>
+  <!-- /Head -->
+  <body class="<%= props.pages %>">
+    <!-- Header -->
+    <%- include ('../components/common/_header') %>
+    <!-- /Header -->
+    <!-- Navigation -->
+    <%- include ('../components/common/_navigation') %>
+    <!-- /Navigation -->
+    <!-- Main Contents -->
+    <main>
+      <!-- Heading -->
+      <%- include ('../components/pages/primary/_heading', { heading: 'This is Secondary Page.'}) %>
+      <!-- /Heading -->
+    </main>
+    <!-- /Main Contents -->
+    <!-- Footer -->
+    <%- include ('../components/common/_footer') %>
+    <!-- /Footer -->
+    <!-- JavaScript -->
+    <%- include ('../components/common/_js') %>
+    <!-- /JavaScript -->
+  </body>
+</html>

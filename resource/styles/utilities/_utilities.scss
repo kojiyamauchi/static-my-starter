@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/*==============================================================================
+
+ Utilities SCSS.
+
+==============================================================================*/
+.txt-indent {
+  text-indent: -10000px;
+}
+
+.display-sp {
+  display: block;
+}
+
+.display-tablet {
+  display: block;
+}
+
+.display-pc {
+  display: none;
+}
+@include isLargeMobile {
+  .display-sp {
+    display: none;
+  }
+
+  .display-tablet {
+    display: block;
+  }
+
+  .display-pc {
+    display: block;
+  }
+}
+@include isTablet {
+  .display-sp {
+    display: none;
+  }
+
+  .display-tablet {
+    display: none;
+  }
+
+  .display-pc {
+    display: block;
+  }
+}

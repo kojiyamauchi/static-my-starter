@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/*==============================================================================
+
+ Footer Components SCSS.
+
+==============================================================================*/
+.components-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  @include isLargeMobile {}
+
+  // scoped.
+  .letter {
+    font-family: Lobster, cursive;
+    font-size: 1.5em;
+
+    @include isLargeMobile {
+      font-size: 2.4em
+    }
+
+  }
+
+}

@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/*==============================================================================
+
+ Header Components SCSS.
+
+==============================================================================*/
+.components-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 40px 0;
+
+  @include isLargeMobile {}
+
+  // scoped.
+  .heading01 {
+    font-size: 3em;
+    font-weight: 300;
+
+    @include isLargeMobile {
+      font-size: 5.6em
+    }
+
+  }
+
+}

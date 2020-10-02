@@ -1,0 +1,10 @@
+<!-- CSS -->
+<% if (props.cssPlugins === 'addPluginName1') { %>
+<link rel="stylesheet" href="Add Plugin CSS File Path">
+<% } %>
+<% if (props.cssPlugins === 'addPluginName2') { %>
+<link rel="stylesheet" href="Add Plugin CSS File Path">
+<link rel="stylesheet" href="Add Plugin CSS File Path">
+<% } %>
+<link rel="stylesheet" href="<%= props.relativePath %>assets/css/<%= props.cssCoreFile %>.min.css?rev">
+<!-- /CSS -->

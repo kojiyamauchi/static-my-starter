@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/*==============================================================================
+
+ Primary Page SCSS.
+
+==============================================================================*/
+@import "default-setting/*";
+@import "variables/*";
+@import "mixins/*";
+@import "utilities/*";
+@import "plugins/*";
+@import "components/common/*";
+@import "components/pages/common/*";
+@import "components/pages/primary/*";
