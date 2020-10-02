@@ -1,0 +1,44 @@
+@charset "UTF-8";
+/*==============================================================================
+
+ Mixins SCSS.
+
+==============================================================================*/
+/* ------------------------
+ Break Points.
+-------------------------*/
+@mixin isSmallMobile {
+  @media (min-width: #{$SMALL_MOBILE_WIDTH}) {
+    @content;
+  }
+}
+@mixin isMobile {
+  @media (min-width: #{$MOBILE_WIDTH}) {
+    @content;
+  }
+}
+@mixin isLargeMobile {
+  @media (min-width: #{$LARGE_MOBILE_WIDTH}) {
+    @content;
+  }
+}
+@mixin isTablet {
+  @media (min-width: #{$TABLET_WIDTH}) {
+    @content;
+  }
+}
+@mixin isDesktop {
+  @media (min-width: #{$DESKTOP_WIDTH}) {
+    @content;
+  }
+}
+@mixin isLargeDesktop {
+  @media (min-width: #{$LARGE_DESKTOP_WIDTH}) {
+    @content;
+  }
+}
+@mixin isCustomOrderMin($ORDER_WIDTH) {
+  @media screen and (min-width: $ORDER_WIDTH) {
+    @content;
+  }
+}

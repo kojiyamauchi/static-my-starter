@@ -1,0 +1,10 @@
+<% if (props.ecmaPolyfill) { %>
+  <script src="<%= props.relativePath %>assets/js/common.polyfill.bundle.min.js?rev" defer></script>
+<% } %>
+<% if (props.ecmaModules) { %>
+  <script src="<%= props.relativePath %>assets/js/common.modules.bundle.min.js?rev" defer></script>
+<% } %>
+<script src="<%= props.relativePath %>assets/js/global.min.js?rev" defer></script>
+<% if (!!props.ecmaCoreFile) { %>
+<script src="<%= props.relativePath %>assets/js/<%= props.ecmaCoreFile %>.min.js?rev" defer></script>
+<% } %>

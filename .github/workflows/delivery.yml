@@ -1,0 +1,96 @@
+name: Delivery
+on:
+  pull_request:
+    types: closed
+    branches: develop
+
+env:
+  # Boolean is No Use, Because It's Value is Out Put String.
+  # When Using Env Var in Conditional Branch, Too Bad.
+  # ```
+  # EXAMPLE_ENV: true
+  # if: EXAMPLE_ENV == 'true'
+  # ```
+  LAUNCH_BUILD: off # Launch Build. [ on, off ]
+  LAUNCH_DEPLOY: off # Launch Deployment. [ on, off ]
+  DEPLOY_TYPE: github-pages # Deploy Type. [ github-pages, netlify, ftp ]
+  ENDPOINT_GITHUB_PAGES: # When Using GitHub Pages, Add Endpoint.
+  ENDPOINT_NETLIFY: # When Using Netlify, Add Endpoint.
+  ENDPOINT_FTP: # When Using FTP, Add Endpoint.
+
+jobs:
+  delivery:
+    name: Build & Deploy
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Env
+        run: |
+          echo "::set-env name=LAUNCH_BUILD::$(echo ${LAUNCH_BUILD})"
+          echo "::set-env name=LAUNCH_DEPLOY::$(echo ${LAUNCH_DEPLOY})"
+          echo "::set-env name=DEPLOY_TYPE::$(echo ${DEPLOY_TYPE})"
+      - name: Get Yarn Cache Directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: yarn
+      - name: Do Build
+        if: env.LAUNCH_BUILD == 'on'
+        run: yarn build
+      - name: Clean Delivery Directory
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE != 'ftp'
+        run: rm delivery/.gitkeep
+      - name: Deploy GitHub Pages / Netlify
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE != 'ftp'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: master
+          publish_dir: ./delivery
+      - name: Preparation of Deploy by FTP
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'ftp'
+        run: git restore yarn.lock
+      - name: Deploy FTP
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'ftp'
+        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        with:
+          ftp-server: ${{ secrets.FTP_SERVER }}
+          ftp-username: ${{ secrets.FTP_USER }}
+          ftp-password: ${{ secrets.FTP_PASS }}
+          local-dir: delivery/
+          git-ftp-args: --remote-root ${{ secrets.FTP_REMOTE_ROOT }} --all
+
+  report:
+    name: Done's Report
+    needs: delivery
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Env
+        run: |
+          echo "::set-env name=LAUNCH_DEPLOY::$(echo ${LAUNCH_DEPLOY})"
+          echo "::set-env name=DEPLOY_TYPE::$(echo ${DEPLOY_TYPE})"
+          echo "::set-env name=ENDPOINT_GITHUB_PAGES::$(echo ${ENDPOINT_GITHUB_PAGES})"
+          echo "::set-env name=ENDPOINT_NETLIFY::$(echo ${ENDPOINT_NETLIFY})"
+          echo "::set-env name=ENDPOINT_FTP::$(echo ${ENDPOINT_FTP})"
+      - name: Finished GitHub Pages Deploy
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'github-pages' && env.ENDPOINT_GITHUB_PAGES != null
+        run: echo ${{ env.ENDPOINT_GITHUB_PAGES }}
+      - name: Finished Netlify Deploy
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'netlify' && env.ENDPOINT_NETLIFY != null
+        run: echo ${{ env.ENDPOINT_NETLIFY }}
+      - name: Finished FTP Deploy
+        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'ftp' && env.ENDPOINT_FTP != null
+        run: echo ${{ env.ENDPOINT_FTP }}

@@ -1,0 +1,65 @@
+name: Preview
+on:
+  pull_request:
+    types: closed
+    branches: master
+
+env:
+  LAUNCH_BUILD: on # Launch Build. [ on, off ]
+  LAUNCH_DEPLOY: on # Launch Deployment. [ on, off ]
+  ENDPOINT_GITHUB_PAGES: https://kojiyamauchi.github.io/static-my-starter # When Using GitHub Pages, Add Endpoint.
+
+jobs:
+  preview:
+    name: Build & Deploy for Preview
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Env
+        run: |
+          echo "::set-env name=LAUNCH_BUILD::$(echo ${LAUNCH_BUILD})"
+          echo "::set-env name=LAUNCH_DEPLOY::$(echo ${LAUNCH_DEPLOY})"
+      - name: Get Yarn Cache Directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: yarn
+      - name: Do Build
+        if: env.LAUNCH_BUILD == 'on'
+        run: yarn build
+      - name: Clean Delivery Directory
+        if: env.LAUNCH_DEPLOY == 'on'
+        run: rm delivery/.gitkeep
+      - name: Do Deploy
+        if: env.LAUNCH_DEPLOY == 'on'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: preview
+          publish_dir: ./delivery
+
+  report:
+    name: Done's Report for Preview
+    needs: preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Env
+        run: |
+          echo "::set-env name=LAUNCH_DEPLOY::$(echo ${LAUNCH_DEPLOY})"
+          echo "::set-env name=ENDPOINT_GITHUB_PAGES::$(echo ${ENDPOINT_GITHUB_PAGES})"
+      - name: Finished GitHub Pages Deploy
+        if: env.LAUNCH_DEPLOY == 'on' && env.ENDPOINT_GITHUB_PAGES != null
+        run: echo ${{ env.ENDPOINT_GITHUB_PAGES }}

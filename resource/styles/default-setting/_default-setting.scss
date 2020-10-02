@@ -1,0 +1,233 @@
+@charset "UTF-8";
+/*==============================================================================
+
+ Reset & Default Setting SCSS.
+
+==============================================================================*/
+/*------------------------------------------------------------------------------
+ Import Google Web Font.
+------------------------------------------------------------------------------*/
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Lobster&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap);
+/*------------------------------------------------------------------------------
+ Reset & Default Setting CSS.
+------------------------------------------------------------------------------*/
+/* Reset CSS. */
+a,
+address,
+article,
+aside,
+audio,
+blockquote,
+button,
+body,
+canvas,
+caption,
+code,
+dd,
+div,
+dl,
+dt,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+iframe,
+img,
+input,
+label,
+li,
+mark,
+menu,
+nav,
+ol,
+output,
+p,
+pre,
+ruby,
+section,
+select,
+span,
+summary,
+table,
+tbody,
+td,
+textarea,
+th,
+time,
+tr,
+ul,
+video {
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Default Setting */
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+html {
+  width: 100vw;
+  font-size: 62.5%; // Base Font Size -> 10px. / Example, When Adjusting Font Size. -> 1.6em = 16px.
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  font-family: "Source Sans Pro", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック Medium", meiryo, sans-serif;
+  color: #777;
+  letter-spacing: 0;
+  line-height: 1;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 50px 0px 20px;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-image: url('../images/logo.png');
+  background-repeat: no-repeat;
+  background-size: 25% auto;
+  background-position: 80% center;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a {
+  color: inherit;
+  background: transparent;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+a:hover {
+  color: inherit;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+
+a:active,
+a:hover,
+a:link,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+a.is-current {}
+
+img {
+  vertical-align: middle;
+}
+
+li,
+ol,
+ul {
+  list-style-type: none;
+}
+
+table {
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="text"],
+select,
+button {
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+textarea {
+  resize: vertical;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+::selection {
+  background: RGBa();
+}
+
+::-moz-selection {
+  background: RGBa();
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  /* Safari Hack */
+  * {
+    // Add Property.
+  }
+}
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+  /* Chrome Hack */
+  * {
+    // Add Property.
+  }
+}
+@-moz-document url-prefix() {
+  /* FireFox Hack */
+  * {
+    // Add Property.
+  }
+}
+@media all and (-ms-high-contrast:none) {
+  /* IE Hack */
+  * {
+    // Add Property.
+  }
+}
