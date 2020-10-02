@@ -1,0 +1,87 @@
+name: CI
+on:
+  pull_request:
+    types: synchronize
+    branches: develop
+
+env:
+  LAUNCH_JEST: off # Launch Jest. [ on, off ]
+  LAUNCH_ESLINT: off # Launch ESLint. [ on, off ]
+  LAUNCH_BUILD: off # Launch Build. [ on, off ]
+
+jobs:
+  jest-and-eslint:
+    name: Jest & ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Env
+        run: |
+          echo "::set-env name=LAUNCH_JEST::$(echo ${LAUNCH_JEST})"
+          echo "::set-env name=LAUNCH_ESLINT::$(echo ${LAUNCH_ESLINT})"
+          if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
+          then
+              echo "::set-env name=FILE_EXISTS::$(echo "on")"
+          else
+              echo "::set-env name=FILE_EXISTS::$(echo "off")"
+          fi
+        shell: bash
+      - name: Get Yarn Cache Directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: yarn
+      - name: Do Jest
+        if: env.LAUNCH_JEST == 'on' && env.FILE_EXISTS == 'on'
+        run: yarn jest
+      - name: Do ESLint
+        if: env.LAUNCH_ESLINT == 'on'
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          eslint_flags: 'resource/**/*.{ts,js}'
+      - name: Displayed ESLINT Failure on Checks
+        run: yarn eslint 'resource/**/*.{ts,js}' --max-warnings 0
+
+  build-test:
+    name: Build Test
+    needs: jest-and-eslint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Env
+        run: |
+          echo "::set-env name=LAUNCH_BUILD::$(echo ${LAUNCH_BUILD})"
+      - name: Get Yarn Cache Directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: yarn
+      - name: Do Build
+        if: env.LAUNCH_BUILD == 'on'
+        run: yarn build

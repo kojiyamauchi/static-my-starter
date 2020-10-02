@@ -1,0 +1,73 @@
+name: CI for Preview
+on:
+  pull_request:
+    types: synchronize
+    branches: master
+
+env:
+  LAUNCH_ESLINT: on # Launch ESLint. [ on, off ]
+  LAUNCH_BUILD: on # Launch Build. [ on, off ]
+
+jobs:
+  eslint:
+    name: ESLint for Preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Env
+        run: echo "::set-env name=LAUNCH_ESLINT::$(echo ${LAUNCH_ESLINT})"
+      - name: Get Yarn Cache Directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: yarn
+      - name: Do ESLint
+        if: env.LAUNCH_ESLINT == 'on'
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          eslint_flags: 'resource/**/*.{ts,js}'
+      - name: Displayed ESLINT Failure on Checks
+        run: yarn eslint 'resource/**/*.{ts,js}' --max-warnings 0
+
+  build-test:
+    name: Build Test for Preview
+    needs: eslint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Set Env
+        run: echo "::set-env name=LAUNCH_BUILD::$(echo ${LAUNCH_BUILD})"
+      - name: Get Yarn Cache Directory
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Node Modules
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: yarn
+      - name: Do Build Test
+        if: env.LAUNCH_BUILD == 'on'
+        run: yarn build
