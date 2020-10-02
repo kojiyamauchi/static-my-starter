@@ -1,0 +1,178 @@
+{
+  "name": "static-my-starter",
+  "description": "This is My Static Web Frontend Starter.",
+  "repository": "git@github.com:kojiyamauchi/static-my-starter.git",
+  "author": "kojiyamauchi <all.the.small.things@me.com>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "core-js": "3",
+    "global": "^4.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-numeric-separator": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/register": "^7.11.5",
+    "@babel/runtime": "^7.11.2",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/jest": "^26.0.14",
+    "@types/jump.js": "^1.0.3",
+    "@types/node": "^14.11.2",
+    "@types/node-fetch": "^2.5.7",
+    "@types/swiper": "^5.4.0",
+    "@types/webpack-env": "^1.15.3",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "autoprefixer": "^10.0.1",
+    "babel-loader": "^8.1.0",
+    "browser-sync": "^2.26.12",
+    "cache-loader": "^4.1.0",
+    "chokidar": "^3.4.2",
+    "chokidar-cli": "^2.1.0",
+    "cpx": "^1.5.0",
+    "crypto": "^1.0.1",
+    "css-loader": "^4.3.0",
+    "del": "^6.0.0",
+    "dotenv": "^8.2.0",
+    "es6-promise": "^4.2.8",
+    "eslint": "^7.10.0",
+    "eslint-config-import": "^0.13.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-import-resolver-webpack": "^0.13.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "exports-loader": "^1.1.0",
+    "file-loader": "^6.1.0",
+    "fork-ts-checker-webpack-plugin": "^5.2.0",
+    "glob": "^7.1.6",
+    "gulp": "^4.0.2",
+    "gulp-csscomb": "^3.1.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-ejs": "^5.1.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.0",
+    "gulp-prettify": "^0.5.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-svgmin": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "husky": "^4.3.0",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-pngquant": "^9.0.1",
+    "imports-loader": "^1.1.0",
+    "isomorphic-fetch": "^3.0.0",
+    "isomorphic-unfetch": "^3.1.0",
+    "jest": "^26.4.2",
+    "json-loader": "^0.5.7",
+    "json-server": "^0.16.2",
+    "jump.js": "^1.0.2",
+    "lazysizes": "^5.2.2",
+    "license-info-webpack-plugin": "^3.0.0",
+    "lint-staged": "^10.4.0",
+    "modal-video": "^2.4.2",
+    "node-fetch": "^2.6.1",
+    "node-sass": "^4.14.1",
+    "npm-check-updates": "^9.0.3",
+    "npm-run-all": "^4.1.5",
+    "opener": "^1.5.2",
+    "postcss": "^8.1.1",
+    "postcss-cachebuster": "^0.1.6",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "prettier": "^2.1.2",
+    "promise-polyfill": "^8.1.3",
+    "sass-loader": "^10.0.2",
+    "source-map-loader": "^1.1.0",
+    "swiper": "^6.3.2",
+    "terser-webpack-plugin": "^4.2.2",
+    "thread-loader": "^3.0.0",
+    "ts-jest": "^26.4.1",
+    "ts-loader": "^8.0.4",
+    "typescript": "^4.0.3",
+    "url-loader": "^4.1.0",
+    "wait-on": "^5.2.0",
+    "webpack": "^4.44.2",
+    "webpack-build-notifier": "^2.1.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.4",
+    "webpack-stream": "^6.1.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11"
+  ],
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "useBuiltIns": "usage",
+          "modules": false,
+          "corejs": 3
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --allow-empty"
+    }
+  },
+  "lint-staged": {
+    "resource/**/!(*.min).{ts,tsx,js}": "eslint　--fix --max-warnings 0",
+    "webpack/*.js": "prettier --write --no-semi --single-quote --trailing-comma none --print-width 160",
+    "gulpfile.babel.js": "prettier --write --no-semi --single-quote --trailing-comma none --print-width 160"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "moduleNameMapper": {
+      "^@/(.+)": "<rootDir>/resource/base/$1"
+    },
+    "transform": {
+      "^.+\\.(ts)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/resource/tests/**/*.test.+(ts|js)"
+    ]
+  },
+  "scripts": {
+    "setup": "rm -rf .git && touch delivery/index.html",
+    "dev": "gulp",
+    "build": "gulp onBuild",
+    "clean": "gulp onClean && touch delivery/index.html",
+    "jest": "jest --passWithNoTests",
+    "remove-fast-cache": "rm -rf node_modules/.cache/hard-source/",
+    "check-pkg": "ncu",
+    "update-pkg": "ncu '/^(?!(add-module-name|@add-module-name)).*$/' -u",
+    "re-install": "rm yarn.lock && rm -rf node_modules && yarn install"
+  }
+}
