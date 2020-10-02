@@ -2,8 +2,6 @@
 
 // Switches Each Mode.
 const switches = {
-  production: false,
-  siteMap: false,
   ecma: true,
   json: true,
   styles: true,
@@ -12,6 +10,7 @@ const switches = {
   compressionImages: true,
   favicon: true,
   delete: true,
+  siteMap: false,
   copy: false,
   rename: false
 }
@@ -218,7 +217,7 @@ export const onBrowserSync = () => {
 
 // Build　Manually.
 // Logic / Style / Template / All.
-export const onEcma = switches.production ? onWebpackPro : onWebpackDev
+export const onEcma = onWebpackDev
 export const onStyles = series(onSass, onCssmin)
 export const onTemplates = series(onEjs, onCacheBustingTemplate)
 export const onBuild = series(
