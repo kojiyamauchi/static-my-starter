@@ -154,7 +154,8 @@ export const onDeleteCacheBusting = () => {
   return src('./resource/templates/**/*.ejs').pipe(replace('?rev', '')).pipe(dest('./resource/templates/'))
 }
 
-const onCompressionImages = () => {
+// Images Minify.
+export const onCompressionImages = () => {
   return src(inCompressionImages)
     .pipe(plumber())
     .pipe(
