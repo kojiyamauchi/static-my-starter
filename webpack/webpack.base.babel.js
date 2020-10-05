@@ -28,7 +28,7 @@ module.exports = {
     filename: '[name].min.js'
   },
 
-  // For Bundle Common Import Modules & Polyfill.
+  // Bundle for Polyfill & Common Import Modules.
   optimization: {
     splitChunks: {
       cacheGroups: {
