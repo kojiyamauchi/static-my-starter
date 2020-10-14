@@ -6,7 +6,6 @@ import webpack from 'webpack'
 import path from 'path'
 import glob from 'glob'
 import ForkTsChecker from 'fork-ts-checker-webpack-plugin'
-import HardSourceWebpackPlugin from 'hard-source-webpack-plugin'
 import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
 
 // Setting Multiple Entry Points for Static Website.
@@ -114,12 +113,10 @@ module.exports = {
       typescript: {
         diagnosticOptions: {
           semantic: true,
-          syntactic: true,
+          syntactic: true
         }
       }
     }),
-    // For Faster Build.
-    new HardSourceWebpackPlugin(),
     // Notify Desktop When a Compile Error.
     new WebpackBuildNotifierPlugin({ suppressSuccess: 'initial' })
   ],
