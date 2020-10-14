@@ -10,7 +10,17 @@ import webpackBase from './webpack.base.babel'
 export default merge(webpackBase, {
   // Setting webpack Mode.
   mode: 'development',
-  cache: true,
+  /*
+    Persistent Caching.
+    See -> https://webpack.js.org/configuration/other-options/#cache
+    See -> https://blog.hiroppy.me/entry/webpack-persistent-caching
+  */
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename]
+    }
+  },
   plugins: [],
   devtool: 'inline-source-map'
 })
