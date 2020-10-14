@@ -71,7 +71,6 @@
     "gulp-sass-glob": "^1.1.0",
     "gulp-svgmin": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "hard-source-webpack-plugin": "^0.13.1",
     "husky": "^4.3.0",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.1",
@@ -166,7 +165,6 @@
     "build": "gulp onBuild",
     "clean": "gulp onClean && touch delivery/index.html",
     "jest": "jest --passWithNoTests",
-    "remove-fast-cache": "rm -rf node_modules/.cache/hard-source/",
     "check-pkg": "ncu",
     "update-pkg": "ncu '/^(?!(add-module-name|@add-module-name)).*$/' -u",
     "re-install": "rm yarn.lock && rm -rf node_modules && yarn install"
