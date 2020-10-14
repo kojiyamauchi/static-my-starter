@@ -103,10 +103,7 @@ When Development with Multiple People, Use `yarn upgrade`
 ー  
 
 ## 🖋 Memo.
-- If HardSourceWebpackPlugin's Warning Displayed on Terminal.  
-🔎`[hardsource:***] Could not freeze...`  
-Delete HardSourceWebpackPlugin's Cache Dir.  
-  - -> `yarn remove-fast-cache`
+- None.
 
 ー  
 
