@@ -18,6 +18,9 @@ entryPointIgnore.map((info) => delete entries[info])
 
 // Setting Start.
 module.exports = {
+  // Instructs webpack to Target a Specific Environment, Will Still Keep IE11 Watched.
+  // See -> https://webpack.js.org/configuration/target
+  target: ['web', 'es5'],
   // JS Core File Entry Point.
   entry: entries,
 
@@ -65,18 +68,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [{ loader: 'cache-loader' }, { loader: 'thread-loader' }, { loader: 'babel-loader?cacheDirectory' }]
+        use: ['cache-loader', 'thread-loader', { loader: 'babel-loader?cacheDirectory' }]
       },
       // TypeScript.
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: [
-          { loader: 'cache-loader' },
-          { loader: 'thread-loader' },
-          { loader: 'babel-loader?cacheDirectory' },
-          { loader: 'ts-loader', options: { happyPackMode: true } }
-        ]
+        use: ['cache-loader', 'thread-loader', 'babel-loader?cacheDirectory', { loader: 'ts-loader', options: { happyPackMode: true } }]
       },
       // Import Json File.
       {
