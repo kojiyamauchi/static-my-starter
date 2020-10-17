@@ -23,13 +23,13 @@ jobs:
           node-version: 12.x
       - name: Set Env
         run: |
-          echo "::set-env name=LAUNCH_BUILD::$(echo ${LAUNCH_BUILD})"
-          echo "::set-env name=LAUNCH_DEPLOY::$(echo ${LAUNCH_DEPLOY})"
+          echo "LAUNCH_BUILD=${LAUNCH_BUILD}" >> $GITHUB_ENV
+          echo "LAUNCH_DEPLOY=${LAUNCH_DEPLOY}" >> $GITHUB_ENV
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Node Modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
@@ -58,8 +58,8 @@ jobs:
     steps:
       - name: Set Env
         run: |
-          echo "::set-env name=LAUNCH_DEPLOY::$(echo ${LAUNCH_DEPLOY})"
-          echo "::set-env name=ENDPOINT_GITHUB_PAGES::$(echo ${ENDPOINT_GITHUB_PAGES})"
+          echo "LAUNCH_DEPLOY=${LAUNCH_DEPLOY}" >> $GITHUB_ENV
+          echo "ENDPOINT_GITHUB_PAGES=${ENDPOINT_GITHUB_PAGES}" >> $GITHUB_ENV
       - name: Finished GitHub Pages Deploy
         if: env.LAUNCH_DEPLOY == 'on' && env.ENDPOINT_GITHUB_PAGES != null
         run: echo ${{ env.ENDPOINT_GITHUB_PAGES }}

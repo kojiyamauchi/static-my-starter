@@ -62,13 +62,13 @@ module.exports = {
         enforce: 'pre',
         test: /\.(js|ts)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader'
+        use: 'eslint-loader'
       },
       // ECMA.
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['cache-loader', 'thread-loader', { loader: 'babel-loader?cacheDirectory' }]
+        use: ['cache-loader', 'thread-loader', 'babel-loader?cacheDirectory']
       },
       // TypeScript.
       {
@@ -81,13 +81,13 @@ module.exports = {
         type: 'javascript/auto',
         test: /\.json$/,
         exclude: /node_modules/,
-        loader: 'json-loader'
+        use: 'json-loader'
       },
       // JS Source Map.
       {
         test: /\.js$/,
         enforce: 'pre',
-        loader: 'source-map-loader'
+        use: 'source-map-loader'
       }
     ]
   },
