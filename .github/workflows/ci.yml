@@ -22,20 +22,20 @@ jobs:
           node-version: 12.x
       - name: Set Env
         run: |
-          echo "::set-env name=LAUNCH_JEST::$(echo ${LAUNCH_JEST})"
-          echo "::set-env name=LAUNCH_ESLINT::$(echo ${LAUNCH_ESLINT})"
+          echo "LAUNCH_JEST=${LAUNCH_JEST}" >> $GITHUB_ENV
+          echo "LAUNCH_ESLINT=${LAUNCH_ESLINT}" >> $GITHUB_ENV
           if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
           then
-              echo "::set-env name=FILE_EXISTS::$(echo "on")"
+              echo "FILE_EXISTS=on" >> $GITHUB_ENV
           else
-              echo "::set-env name=FILE_EXISTS::$(echo "off")"
+              echo "FILE_EXISTS=off" >> $GITHUB_ENV
           fi
         shell: bash
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Node Modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
@@ -69,12 +69,12 @@ jobs:
           node-version: 12.x
       - name: Set Env
         run: |
-          echo "::set-env name=LAUNCH_BUILD::$(echo ${LAUNCH_BUILD})"
+          echo "LAUNCH_BUILD=${LAUNCH_BUILD}" >> $GITHUB_ENV
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Node Modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
