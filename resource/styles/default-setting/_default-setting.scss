@@ -14,6 +14,7 @@
  Reset & Default Setting CSS.
 ------------------------------------------------------------------------------*/
 /* Reset CSS. */
+
 a,
 address,
 article,
@@ -66,21 +67,22 @@ time,
 tr,
 ul,
 video {
-  font-size: 100%;
-  font-weight: normal;
-  font-style: normal;
-  vertical-align: baseline;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  font-size: 100%;
+  font-style: normal;
+  font-weight: normal;
+  vertical-align: baseline;
   border: 0;
 }
 
 /* Default Setting */
+
 * {
-  box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
+  box-sizing: border-box;
   overflow-wrap: break-word;
 }
 
@@ -90,35 +92,34 @@ html {
 }
 
 body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  background: #fff;
+  padding: 50px 0px 20px;
+  overflow-x: hidden;
   font-family: "Source Sans Pro", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック Medium", meiryo, sans-serif;
+  line-height: 1;
   color: #777;
   letter-spacing: 0;
-  line-height: 1;
-  overflow-x: hidden;
-  position: relative;
+  background: #fff;
   -webkit-overflow-scrolling: touch;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 50px 0px 20px;
 }
 
 main {
-  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   background-image: url('../images/logo.png');
   background-repeat: no-repeat;
-  background-size: 25% auto;
   background-position: 80% center;
+  background-size: 25% auto;
 }
 
 article,
@@ -141,8 +142,8 @@ strong {
 
 a {
   color: inherit;
-  background: transparent;
   text-decoration: none;
+  background: transparent;
   opacity: 1;
   transition: opacity 0.5s;
 }
@@ -209,24 +210,28 @@ textarea {
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   /* Safari Hack */
+
   * {
     // Add Property.
   }
 }
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
   /* Chrome Hack */
+
   * {
     // Add Property.
   }
 }
 @-moz-document url-prefix() {
   /* FireFox Hack */
+
   * {
     // Add Property.
   }
 }
 @media all and (-ms-high-contrast:none) {
   /* IE Hack */
+
   * {
     // Add Property.
   }

@@ -4,15 +4,17 @@
  Footer Components SCSS.
 
 ==============================================================================*/
+
 .components-footer {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
 
   @include isLargeMobile {}
 
   // scoped.
+
   .letter {
     font-family: Lobster, cursive;
     font-size: 1.5em;
