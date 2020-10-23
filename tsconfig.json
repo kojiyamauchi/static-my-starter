@@ -2,6 +2,7 @@
   "compilerOptions": {
 
     "strict": true,
+    "alwaysStrict": true,
     "noEmitOnError": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -12,6 +13,7 @@
     "newLine": "LF",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
 
     "target": "esnext",
     "module": "esnext",
