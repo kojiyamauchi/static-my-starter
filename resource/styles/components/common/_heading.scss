@@ -4,15 +4,17 @@
  Heading Components SCSS.
 
 ==============================================================================*/
+
 .components-heading {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
 
   @include isLargeMobile {}
 
   // scoped.
+
   .heading02 {
     font-size: 3em;
     font-weight: 300;

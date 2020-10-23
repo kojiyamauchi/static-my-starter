@@ -37,12 +37,12 @@ import webpackDev from './webpack/webpack.dev.babel'
 import webpackPro from './webpack/webpack.pro.babel'
 // For Sass & CSS.
 import sass from 'gulp-sass'
+import stylelint from 'gulp-stylelint'
 import sassGlob from 'gulp-sass-glob'
 import postCSS from 'gulp-postcss'
 import autoprefixer from 'autoprefixer'
 import fixFlexBugs from 'postcss-flexbugs-fixes'
 import cacheBustingBackgroundImage from 'postcss-cachebuster'
-import csscomb from 'gulp-csscomb'
 import cssmin from 'gulp-cssmin'
 // For Template.
 import ejs from 'gulp-ejs'
@@ -57,7 +57,7 @@ import browserSync from 'browser-sync'
 
 // Settings.
 const postCSSLayoutFix = [autoprefixer({ grid: true }), fixFlexBugs]
-const postCSSCacheBusting = [cacheBustingBackgroundImage({imagesPath: '/resource/materials'})]
+const postCSSCacheBusting = [cacheBustingBackgroundImage({ imagesPath: '/resource/materials' })]
 const templatesMonitor = ['./resource/templates/**/*']
 const templateEntryPointIgnore = []
 const cacheBustingTemplate = ['./delivery/**/*.html']
@@ -94,10 +94,10 @@ export const onJson = () => {
 export const onSass = () => {
   return src(['./resource/styles/**/*.scss', ...styleEntryPointIgnore], { sourcemaps: true })
     .pipe(plumber({ errorHandler: notify.onError('error: <%= error.message %>') }))
+    .pipe(stylelint({ reporters: [{ formatter: 'string', console: true }] }))
     .pipe(sassGlob({ ignorePaths: styleGlobIgnore }))
     .pipe(sass({ outputStyle: 'expanded' }))
     .pipe(postCSS(postCSSLayoutFix))
-    .pipe(csscomb())
     .pipe(dest('./resource/materials/css/', { sourcemaps: '../maps' }))
 }
 
@@ -176,7 +176,9 @@ export const onManifest = () => {
 
 // When Add Favicon.
 export const onFavicon = () => {
-  return src(['./resource/materials/favicons/*', '!./resource/materials/favicons/site.webmanifest', '!./resource/materials/favicons/browserconfig.xml']).pipe(dest('./delivery/assets/favicons/'))
+  return src(['./resource/materials/favicons/*', '!./resource/materials/favicons/site.webmanifest', '!./resource/materials/favicons/browserconfig.xml']).pipe(
+    dest('./delivery/assets/favicons/')
+  )
 }
 
 // Delete Unnecessary Files.
@@ -186,7 +188,7 @@ export const onDelete = (cb) => {
 
 // For When Building Manually, Delete Compiled Files Before Building. ( When Switching Working Branches. )
 export const onClean = (cd) => {
-  return del(['./delivery/**/*','./resource/materials/css', './resource/materials/maps'])
+  return del(['./delivery/**/*', './resource/materials/css', './resource/materials/maps'])
 }
 
 // When Renaming Files.

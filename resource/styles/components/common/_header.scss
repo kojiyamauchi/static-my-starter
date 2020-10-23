@@ -4,16 +4,18 @@
  Header Components SCSS.
 
 ==============================================================================*/
+
 .components-header {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
   margin: 0 0 40px 0;
 
   @include isLargeMobile {}
 
   // scoped.
+
   .heading01 {
     font-size: 3em;
     font-weight: 300;
