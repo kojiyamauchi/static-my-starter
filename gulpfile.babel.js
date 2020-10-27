@@ -37,8 +37,10 @@ import webpackDev from './webpack/webpack.dev.babel'
 import webpackPro from './webpack/webpack.pro.babel'
 // For Sass & CSS.
 import sass from 'gulp-sass'
+import sassCompiler from 'sass'
 import stylelint from 'gulp-stylelint'
 import sassGlob from 'gulp-sass-glob'
+import fibers from 'fibers'
 import postCSS from 'gulp-postcss'
 import autoprefixer from 'autoprefixer'
 import fixFlexBugs from 'postcss-flexbugs-fixes'
@@ -56,6 +58,7 @@ import pngquant from 'imagemin-pngquant'
 import browserSync from 'browser-sync'
 
 // Settings.
+sass.compiler = sassCompiler
 const postCSSLayoutFix = [autoprefixer({ grid: true }), fixFlexBugs]
 const postCSSCacheBusting = [cacheBustingBackgroundImage({ imagesPath: '/resource/materials' })]
 const templatesMonitor = ['./resource/templates/**/*']
@@ -93,10 +96,10 @@ export const onJson = () => {
 // Compile sass.
 export const onSass = () => {
   return src(['./resource/styles/**/*.scss', ...styleEntryPointIgnore], { sourcemaps: true })
-    .pipe(plumber({ errorHandler: notify.onError('error: <%= error.message %>') }))
+    .pipe(plumber({ errorHandler: notify.onError({ message: 'SCSS Compile Error: <%= error.message %>', onLast: true }) }))
     .pipe(stylelint({ reporters: [{ formatter: 'string', console: true }] }))
     .pipe(sassGlob({ ignorePaths: styleGlobIgnore }))
-    .pipe(sass({ outputStyle: 'expanded' }))
+    .pipe(sass({ fiber: fibers, outputStyle: 'expanded' }))
     .pipe(postCSS(postCSSLayoutFix))
     .pipe(dest('./resource/materials/css/', { sourcemaps: '../maps' }))
 }
@@ -113,7 +116,7 @@ export const onCssmin = () => {
 // Compile EJS.
 export const onEjs = () => {
   return src(['./resource/templates/**/*.ejs', '!./resource/templates/**/_*.ejs', ...templateEntryPointIgnore])
-    .pipe(plumber({ errorHandler: notify.onError('error: <%= error.message %>') }))
+    .pipe(plumber({ errorHandler: notify.onError({ message: 'EJS Compile Error: <%= error.message %>', onLast: true }) }))
     .pipe(ejs())
     .pipe(rename({ extname: '.html' }))
     .pipe(dest('./delivery/'))

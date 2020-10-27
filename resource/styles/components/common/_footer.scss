@@ -1,9 +1,5 @@
 @charset "UTF-8";
-/*==============================================================================
-
- Footer Components SCSS.
-
-==============================================================================*/
+@use "../../mixins";
 
 .components-footer {
   display: flex;
@@ -11,7 +7,7 @@
   justify-content: center;
   width: 100%;
 
-  @include isLargeMobile {}
+  @include mixins.isLargeMobile {}
 
   // scoped.
 
@@ -19,7 +15,7 @@
     font-family: Lobster, cursive;
     font-size: 1.5em;
 
-    @include isLargeMobile {
+    @include mixins.isLargeMobile {
       font-size: 2.4em
     }
 

@@ -1,9 +1,5 @@
 @charset "UTF-8";
-/*==============================================================================
-
- Navigation Components SCSS.
-
-==============================================================================*/
+@use "../../mixins";
 
 .components-navigation {
   display: flex;
@@ -13,7 +9,7 @@
   padding: 0 20px;
   margin: 0 auto;
 
-  @include isLargeMobile {
+  @include mixins.isLargeMobile {
     width: 60%;
     padding: 0;
   }
@@ -22,7 +18,7 @@
 
   .navi-list {
 
-    @include isLargeMobile {}
+    @include mixins.isLargeMobile {}
 
   }
 
@@ -30,7 +26,7 @@
     font-size: 1.375em;
     font-weight: 300;
 
-    @include isLargeMobile {
+    @include mixins.isLargeMobile {
       font-size: 2.2em
     }
 

@@ -1,0 +1,38 @@
+@charset "UTF-8";
+@use "../constants" as const;
+
+@mixin isSmallMobile {
+  @media (min-width: #{const.$SMALL_MOBILE_WIDTH}) {
+    @content;
+  }
+}
+@mixin isMobile {
+  @media (min-width: #{const.$MOBILE_WIDTH}) {
+    @content;
+  }
+}
+@mixin isLargeMobile {
+  @media (min-width: #{const.$LARGE_MOBILE_WIDTH}) {
+    @content;
+  }
+}
+@mixin isTablet {
+  @media (min-width: #{const.$TABLET_WIDTH}) {
+    @content;
+  }
+}
+@mixin isDesktop {
+  @media (min-width: #{const.$DESKTOP_WIDTH}) {
+    @content;
+  }
+}
+@mixin isLargeDesktop {
+  @media (min-width: #{const.$LARGE_DESKTOP_WIDTH}) {
+    @content;
+  }
+}
+@mixin isCustomOrderMin($ORDER_WIDTH) {
+  @media screen and (min-width: $ORDER_WIDTH) {
+    @content;
+  }
+}

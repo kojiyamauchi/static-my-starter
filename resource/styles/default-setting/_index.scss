@@ -1,18 +1,8 @@
 @charset "UTF-8";
-/*==============================================================================
-
- Reset & Default Setting SCSS.
-
-==============================================================================*/
-/*------------------------------------------------------------------------------
- Import Google Web Font.
-------------------------------------------------------------------------------*/
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Lobster&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap);
-/*------------------------------------------------------------------------------
- Reset & Default Setting CSS.
-------------------------------------------------------------------------------*/
+
 /* Reset CSS. */
 
 a,
@@ -211,28 +201,20 @@ textarea {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   /* Safari Hack */
 
-  * {
-    // Add Property.
-  }
+  * {}
 }
 @media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
   /* Chrome Hack */
 
-  * {
-    // Add Property.
-  }
+  * {}
 }
 @-moz-document url-prefix() {
   /* FireFox Hack */
 
-  * {
-    // Add Property.
-  }
+  * {}
 }
 @media all and (-ms-high-contrast:none) {
   /* IE Hack */
 
-  * {
-    // Add Property.
-  }
+  * {}
 }
