@@ -1,9 +1,5 @@
 @charset "UTF-8";
-/*==============================================================================
-
- Header Components SCSS.
-
-==============================================================================*/
+@use "../../mixins";
 
 .components-header {
   display: flex;
@@ -12,7 +8,7 @@
   width: 100%;
   margin: 0 0 40px 0;
 
-  @include isLargeMobile {}
+  @include mixins.isLargeMobile {}
 
   // scoped.
 
@@ -20,7 +16,7 @@
     font-size: 3em;
     font-weight: 300;
 
-    @include isLargeMobile {
+    @include mixins.isLargeMobile {
       font-size: 5.6em
     }
 

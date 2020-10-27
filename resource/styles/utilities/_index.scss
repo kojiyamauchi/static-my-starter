@@ -1,9 +1,5 @@
 @charset "UTF-8";
-/*==============================================================================
-
- Utilities SCSS.
-
-==============================================================================*/
+@use "../mixins";
 
 .txt-indent {
   text-indent: -10000px;
@@ -20,7 +16,7 @@
 .display-pc {
   display: none;
 }
-@include isLargeMobile {
+@include mixins.isLargeMobile {
   .display-sp {
     display: none;
   }
@@ -33,7 +29,7 @@
     display: block;
   }
 }
-@include isTablet {
+@include mixins.isTablet {
   .display-sp {
     display: none;
   }
