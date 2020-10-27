@@ -5,40 +5,40 @@
   text-indent: -10000px;
 }
 
-.display-sp {
+.is-mobile {
   display: block;
 }
 
-.display-tablet {
+.is-tablet {
   display: block;
 }
 
-.display-pc {
+.is-desktop {
   display: none;
 }
 @include mixins.isLargeMobile {
-  .display-sp {
+  .is-mobile {
     display: none;
   }
 
-  .display-tablet {
+  .is-tablet {
     display: block;
   }
 
-  .display-pc {
+  .is-desktop {
     display: block;
   }
 }
 @include mixins.isTablet {
-  .display-sp {
+  .is-mobile {
     display: none;
   }
 
-  .display-tablet {
+  .is-tablet {
     display: none;
   }
 
-  .display-pc {
+  .is-desktop {
     display: block;
   }
 }
