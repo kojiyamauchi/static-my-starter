@@ -31,6 +31,11 @@
     @content;
   }
 }
+@mixin isExtraLargeDesktop {
+  @media (min-width: #{const.$EXTRA_LARGE_DESKTOP_WIDTH}) {
+    @content;
+  }
+}
 @mixin isCustomOrderMin($ORDER_WIDTH) {
   @media screen and (min-width: $ORDER_WIDTH) {
     @content;
