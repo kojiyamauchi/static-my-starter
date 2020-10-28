@@ -108,6 +108,7 @@ When Development with Multiple People, Use `yarn upgrade`
 ー  
 
 ## ✋ TODO.  
-- None.
+- Currently, Dart Sass's `@use` Does Not Seem to Be Able to Use `glob`.  
+  So, Use `@import` in Some Cases on Entrypoint Files.
 
 <h2 align="center">🥛🥛🥛</h2>    
