@@ -4,12 +4,12 @@
  Third Page SCSS.
 
  Currently, '@use' Doesn't Seem to Be Able to Use 'glob',
- Use '@import' in Some Cases.
+ Use '@import' in Some Cases on Entrypoint.
 
 ==============================================================================*/
 @use "default-setting";
 @use "utilities";
-@import "plugins/*";
+@use "plugins/some-plugin";
 @import "components/common/*";
 @import "components/pages/common/*";
 @import "components/pages/third/*";
