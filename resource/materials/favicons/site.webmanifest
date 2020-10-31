@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Static My Starter",
+    "short_name": "Static My Starter",
     "icons": [
         {
             "src": "assets/favicons/android-chrome-192x192.png",
