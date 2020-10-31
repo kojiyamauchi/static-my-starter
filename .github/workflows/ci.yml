@@ -53,7 +53,7 @@ jobs:
           reporter: github-pr-review
           eslint_flags: 'resource/**/*.{ts,js}'
       - name: Displayed ESLINT Failure on Checks
-        # if: env.LAUNCH_ESLINT == 'on'
+        if: env.LAUNCH_ESLINT == 'on'
         run: yarn eslint 'resource/**/*.{ts,js}' --max-warnings 0
       - name: Do stylelint
         if: env.LAUNCH_STYLELINT == 'on'
