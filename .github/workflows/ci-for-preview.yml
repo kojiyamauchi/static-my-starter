@@ -5,7 +5,7 @@ on:
     branches: master
 
 env:
-  LAUNCH_ESLINT: on # Launch ESLint. [ on, off ]
+  LAUNCH_ESLINT: off # Launch ESLint. [ on, off ]
   LAUNCH_STYLELINT: on # Launch stylelint. [ on, off ]
   LAUNCH_BUILD: on # Launch Build. [ on, off ]
 
