@@ -138,7 +138,7 @@
     }
   },
   "lint-staged": {
-    "resource/**/!(*.min).{ts,tsx,js}": "eslint　--fix --max-warnings 0",
+    "resource/**/!(*.min).{ts,tsx,js}": "eslint --fix --max-warnings 0",
     "resource/**/*.scss": "stylelint --fix",
     "webpack/*.js": "prettier --write --no-semi --single-quote --trailing-comma none --print-width 160",
     "gulpfile.babel.js": "prettier --write --no-semi --single-quote --trailing-comma none --print-width 160"
