@@ -5,13 +5,14 @@ on:
     branches: develop
 
 env:
-  LAUNCH_JEST: off # Launch Jest. [ on, off ]
   LAUNCH_ESLINT: off # Launch ESLint. [ on, off ]
+  LAUNCH_STYLELINT: off # Launch stylelint. [ on, off ]
+  LAUNCH_JEST: off # Launch Jest. [ on, off ]
   LAUNCH_BUILD: off # Launch Build. [ on, off ]
 
 jobs:
-  jest-and-eslint:
-    name: Jest & ESLint
+  eslint-and-stylelint-and-jest:
+    name: ESLint & stylelint & Jest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,8 +23,9 @@ jobs:
           node-version: 14.x
       - name: Set Env
         run: |
-          echo "LAUNCH_JEST=${LAUNCH_JEST}" >> $GITHUB_ENV
           echo "LAUNCH_ESLINT=${LAUNCH_ESLINT}" >> $GITHUB_ENV
+          echo "LAUNCH_STYLELINT=${LAUNCH_STYLELINT}" >> $GITHUB_ENV
+          echo "LAUNCH_JEST=${LAUNCH_JEST}" >> $GITHUB_ENV
           if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
           then
               echo "FILE_EXISTS=on" >> $GITHUB_ENV
@@ -43,9 +45,6 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install Dependencies
         run: yarn
-      - name: Do Jest
-        if: env.LAUNCH_JEST == 'on' && env.FILE_EXISTS == 'on'
-        run: yarn jest
       - name: Do ESLint
         if: env.LAUNCH_ESLINT == 'on'
         uses: reviewdog/action-eslint@v1
@@ -54,11 +53,25 @@ jobs:
           reporter: github-pr-review
           eslint_flags: 'resource/**/*.{ts,js}'
       - name: Displayed ESLINT Failure on Checks
+        # if: env.LAUNCH_ESLINT == 'on'
         run: yarn eslint 'resource/**/*.{ts,js}' --max-warnings 0
+      - name: Do stylelint
+        if: env.LAUNCH_STYLELINT == 'on'
+        uses: reviewdog/action-stylelint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          stylelint_input: 'resource/**/*.scss'
+      - name: Displayed stylelint Failure on Checks
+        if: env.LAUNCH_STYLELINT == 'on'
+        run: yarn stylelint 'resource/**/*.scss'
+      - name: Do Jest
+        if: env.LAUNCH_JEST == 'on' && env.FILE_EXISTS == 'on'
+        run: yarn jest
 
   build-test:
     name: Build Test
-    needs: jest-and-eslint
+    needs: eslint-and-stylelint-and-jest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -68,8 +81,7 @@ jobs:
         with:
           node-version: 14.x
       - name: Set Env
-        run: |
-          echo "LAUNCH_BUILD=${LAUNCH_BUILD}" >> $GITHUB_ENV
+        run: echo "LAUNCH_BUILD=${LAUNCH_BUILD}" >> $GITHUB_ENV
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
