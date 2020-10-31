@@ -27,8 +27,8 @@ Static My Starter.
       - -> `Protect matching branches`
         - Check `Require status checks to pass before merging`
         - Check `Require branches to be up to date before merging`
+        - Check `ESLint & stylelint & Jest`
         - Check `Build Test`
-        - Check `Jest & ESLint`
 
 ー  
 

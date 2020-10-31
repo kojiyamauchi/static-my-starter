@@ -6,11 +6,12 @@ on:
 
 env:
   LAUNCH_ESLINT: on # Launch ESLint. [ on, off ]
+  LAUNCH_STYLELINT: on # Launch stylelint. [ on, off ]
   LAUNCH_BUILD: on # Launch Build. [ on, off ]
 
 jobs:
-  eslint:
-    name: ESLint for Preview
+  eslint-and-stylelint:
+    name: ESLint & stylelint for Preview
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,7 +21,9 @@ jobs:
         with:
           node-version: 14.x
       - name: Set Env
-        run: echo "LAUNCH_ESLINT=${LAUNCH_ESLINT}" >> $GITHUB_ENV
+        run: |
+          echo "LAUNCH_ESLINT=${LAUNCH_ESLINT}" >> $GITHUB_ENV
+          echo "LAUNCH_STYLELINT=${LAUNCH_STYLELINT}" >> $GITHUB_ENV
       - name: Get Yarn Cache Directory
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -41,11 +44,22 @@ jobs:
           reporter: github-pr-review
           eslint_flags: 'resource/**/*.{ts,js}'
       - name: Displayed ESLINT Failure on Checks
+        if: env.LAUNCH_ESLINT == 'on'
         run: yarn eslint 'resource/**/*.{ts,js}' --max-warnings 0
+      - name: Do stylelint
+        if: env.LAUNCH_STYLELINT == 'on'
+        uses: reviewdog/action-stylelint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          stylelint_input: 'resource/**/*.scss'
+      - name: Displayed stylelint Failure on Checks
+        if: env.LAUNCH_STYLELINT == 'on'
+        run: yarn stylelint 'resource/**/*.scss'
 
   build-test:
     name: Build Test for Preview
-    needs: eslint
+    needs: eslint-and-stylelint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
