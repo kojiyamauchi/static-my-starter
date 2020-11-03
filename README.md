@@ -65,7 +65,7 @@ resource
 ## 🍟 Continuous Integration.
 - When Commit & Push to the Pull Request, ( Only Pull Request to `develop` Branch )
   - When There is a File Containing Test Code in  `resource/tests` Directory, Jest Will Launch.
-  - Statically Analyze Code with ESLint. ( Before That, Husky & Lint Staged also Uses ESLint 💣 )
+  - Statically Analyze Code with ESLint && stylelint. ( Before That, Husky & Lint Staged also Uses ESLint && stylelint 💣 )
   - Test the Build at Every Commit.  
 
 Launches Jest & ESLint & Test Build in `.github/workflows/ci.yml`  
