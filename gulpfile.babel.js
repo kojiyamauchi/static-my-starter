@@ -11,6 +11,7 @@ const switches = {
   favicon: true,
   delete: true,
   siteMap: false,
+  basicAuth: false,
   copy: false,
   rename: false
 }
@@ -51,6 +52,7 @@ import del from 'del'
 import replace from 'gulp-replace'
 import crypto from 'crypto'
 import gulpIf from 'gulp-if'
+import { exec } from 'child_process'
 // For Env.
 import browserSync from 'browser-sync'
 
@@ -183,14 +185,21 @@ export const onFavicon = () => {
   )
 }
 
+// When Add Basic Auth.
+export const onBasicAuth = () => {
+  const cmd = 'cp resource/materials/basic-auth/.htaccess resource/materials/basic-auth/.htpasswd delivery'
+  return exec(cmd)
+}
+
 // Delete Unnecessary Files.
 export const onDelete = (cb) => {
   return del(['**/.DS_Store', './delivery/**/*.ejs', '!node_modules/**/*'], cb)
 }
 
 // For When Building Manually, Delete Compiled Files Before Building. ( When Switching Working Branches. )
-export const onClean = (cd) => {
-  return del(['./delivery/**/*', './resource/materials/css', './resource/materials/maps'])
+export const onClean = () => {
+  const cmd = 'npx rimraf delivery/* delivery/.htaccess delivery/.htpasswd resource/materials/css resource/materials/maps'
+  return exec(cmd)
 }
 
 // When Renaming Files.
@@ -231,6 +240,7 @@ export const onBuild = series(
     switches.json && onJson()
     switches.favicon && onManifest()
     switches.favicon && onFavicon()
+    switches.basicAuth && onBasicAuth()
     doneReport()
   })
 )
