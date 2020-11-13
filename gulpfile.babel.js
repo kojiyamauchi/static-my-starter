@@ -145,8 +145,7 @@ export const onCacheBustingTemplate = () => {
           indent_size: 2,
           indent_char: ' ',
           end_with_newline: false,
-          preserve_newlines: false,
-          unformatted: ['span', 'a', 'img']
+          preserve_newlines: false
         })
       )
     )
