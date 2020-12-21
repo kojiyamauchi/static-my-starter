@@ -50,7 +50,6 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-promise": "^4.2.1",
     "exports-loader": "^1.1.1",
     "fibers": "^5.0.0",
@@ -139,10 +138,10 @@
     }
   },
   "lint-staged": {
-    "resource/**/!(*.min).{ts,tsx,js}": "eslint --fix --max-warnings 0",
+    "resource/**/!(*.min).{ts,tsx,js}": ["prettier --write", "eslint --fix --max-warnings 0"],
     "resource/**/*.scss": "stylelint --fix",
-    "webpack/*.js": "prettier --write --no-semi --single-quote --trailing-comma none --print-width 160",
-    "gulpfile.babel.js": "prettier --write --no-semi --single-quote --trailing-comma none --print-width 160"
+    "webpack/*.js": "prettier --write",
+    "gulpfile.babel.js": "prettier --write"
   },
   "jest": {
     "moduleFileExtensions": [
