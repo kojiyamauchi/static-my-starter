@@ -1,0 +1,7 @@
+<Files ~ ".(webp|svg|png|jpe?g|gif|ico|otf|ttf|eot|woff)$">
+	Header set Cache-Control "max-age=2592000, public"
+</Files>
+
+<Files ~ ".(js|css|html)$">
+	Header set Cache-Control "max-age=86400, public"
+</Files>

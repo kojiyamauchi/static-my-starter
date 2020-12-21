@@ -16,7 +16,6 @@ parserOptions:
   extraFileExtensions: ".vue"
 plugins:
   - "@typescript-eslint"
-  - prettier
   - import
   - jest
 settings:
@@ -36,19 +35,9 @@ settings:
 extends:
   - "eslint:recommended"
   - "plugin:@typescript-eslint/recommended"
-  - "plugin:prettier/recommended"
+  - "prettier"
 rules:
-  "prettier/prettier":
-    - error
-    - tabWidth: 2
-      trailingComma: none
-      singleQuote: true
-      semi: false
-      printWidth: 160
   indent: off
-  "@typescript-eslint/indent":
-    - error
-    - 2
   "@typescript-eslint/no-non-null-assertion": off
   "@typescript-eslint/naming-convention": off
   "@typescript-eslint/no-namespace": off

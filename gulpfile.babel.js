@@ -11,7 +11,7 @@ const switches = {
   favicon: true,
   delete: true,
   siteMap: false,
-  basicAuth: false,
+  htaccess: false,
   copy: false,
   rename: false
 }
@@ -185,8 +185,8 @@ export const onFavicon = () => {
 }
 
 // When Add Basic Auth.
-export const onBasicAuth = () => {
-  const cmd = 'cp resource/materials/basic-auth/.htaccess resource/materials/basic-auth/.htpasswd delivery'
+export const onHtaccess = () => {
+  const cmd = 'cp resource/materials/htaccess/.htaccess resource/materials/htaccess/.htpasswd delivery'
   return exec(cmd)
 }
 
@@ -239,7 +239,7 @@ export const onBuild = series(
     switches.json && onJson()
     switches.favicon && onManifest()
     switches.favicon && onFavicon()
-    switches.basicAuth && onBasicAuth()
+    switches.htaccess && onHtaccess()
     doneReport()
   })
 )
