@@ -7,7 +7,7 @@
  Use '@import' in Some Cases on Entrypoint.
 
 ==============================================================================*/
-@use "default-setting";
+@use "default";
 @use "utilities";
 @use "plugins/some-plugin";
 @import "components/common/*";
