@@ -76,44 +76,6 @@ video {
   overflow-wrap: break-word;
 }
 
-html {
-  width: 100vw;
-  font-size: 62.5%; // Base Font Size -> 10px. / Example, When Adjusting Font Size. -> 1.6em = 16px.
-}
-
-body {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: "Source Sans Pro", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック Medium", meiryo, sans-serif;
-  line-height: 1;
-  color: #777;
-  letter-spacing: 0;
-  background: #fff;
-  -webkit-overflow-scrolling: touch;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  @supports (-webkit-touch-callout: none) {
-    min-height: -webkit-fill-available;
-  }
-}
-
-main {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-image: url('../images/logo.png');
-  background-repeat: no-repeat;
-  background-position: 80% center;
-  background-size: 25% auto;
-}
-
 article,
 aside,
 details,
@@ -219,4 +181,42 @@ textarea {
   /* IE Hack */
 
   * {}
+}
+
+html {
+  width: 100vw;
+  font-size: 62.5%; // Base Font Size -> 10px. / Example, When Adjusting Font Size. -> 1.6em = 16px.
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Source Sans Pro", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "游ゴシック Medium", meiryo, sans-serif;
+  line-height: 1;
+  color: #777;
+  letter-spacing: 0;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-image: url('../images/logo.png');
+  background-repeat: no-repeat;
+  background-position: 80% center;
+  background-size: 25% auto;
 }
