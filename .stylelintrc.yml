@@ -18,6 +18,7 @@ rules:
   value-no-vendor-prefix:
     - true
     - ignoreValues:
+      - grid
       - fill-available
   value-keyword-case:
     - lower
