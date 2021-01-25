@@ -75,6 +75,7 @@
     "husky": "^4.3.6",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.1",
+    "immer": "^8.0.0",
     "imports-loader": "^1.2.0",
     "isomorphic-fetch": "^3.0.0",
     "isomorphic-unfetch": "^3.1.0",
@@ -138,7 +139,10 @@
     }
   },
   "lint-staged": {
-    "resource/**/!(*.min).{ts,tsx,js}": ["prettier --write", "eslint --fix --max-warnings 0"],
+    "resource/**/*.{ts,js}": [
+      "prettier --write",
+      "eslint --fix --max-warnings 0"
+    ],
     "resource/**/*.scss": "stylelint --fix",
     "webpack/*.js": "prettier --write",
     "gulpfile.babel.js": "prettier --write"
