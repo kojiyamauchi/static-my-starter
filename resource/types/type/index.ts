@@ -1,3 +1,1 @@
-// type AddName = {
-// Add Member.
-// }
+export type ValueOf<T> = T[keyof T]
