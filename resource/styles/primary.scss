@@ -10,6 +10,6 @@
 @use "default";
 @use "utilities";
 @use "plugins/some-plugin";
+@use "components/pages/common/some-commons";
 @import "components/common/*";
-@import "components/pages/common/*";
 @import "components/pages/primary/*";
