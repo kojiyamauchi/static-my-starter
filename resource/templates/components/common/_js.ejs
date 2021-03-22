@@ -4,7 +4,9 @@
 <% if (props.ecmaModules) { %>
   <script src="<%= props.relativePath %>assets/js/common.modules.bundle.min.js?rev" defer></script>
 <% } %>
+<% if (props.ecmaGlobal) { %>
 <script src="<%= props.relativePath %>assets/js/global.min.js?rev" defer></script>
-<% if (!!props.ecmaCoreFile) { %>
-<script src="<%= props.relativePath %>assets/js/<%= props.ecmaCoreFile %>.min.js?rev" defer></script>
+<% } %>
+<% if (!!props.ecmaCore) { %>
+<script src="<%= props.relativePath %>assets/js/<%= props.ecmaCore %>.min.js?rev" defer></script>
 <% } %>
