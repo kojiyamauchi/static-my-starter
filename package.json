@@ -134,11 +134,6 @@
       "@babel/plugin-transform-modules-commonjs"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged --allow-empty"
-    }
-  },
   "lint-staged": {
     "resource/**/*.{ts,js}": [
       "prettier --write",
@@ -170,13 +165,14 @@
   },
   "scripts": {
     "setup": "rm -rf .git && touch delivery/index.html",
+    "prepare": "husky install",
     "dev": "gulp",
     "build": "gulp onBuild",
     "serve": "gulp onBrowserSync",
     "clean": "gulp onClean && touch delivery/index.html",
     "jest": "jest --passWithNoTests",
     "check-pkg": "ncu",
-    "update-pkg": "ncu '/^(?!(husky|@add-module-name)).*$/' -u",
+    "update-pkg": "ncu '/^(?!(add-module-name|@add-module-name)).*$/' -u",
     "re-install": "rm yarn.lock && rm -rf node_modules && yarn install"
   }
 }
