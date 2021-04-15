@@ -68,22 +68,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          'cache-loader',
-          // 'thread-loader',
-          'babel-loader?cacheDirectory'
-        ]
+        use: ['cache-loader', 'thread-loader', 'babel-loader?cacheDirectory']
       },
       // TypeScript.
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: [
-          'cache-loader',
-          // 'thread-loader',
-          'babel-loader?cacheDirectory',
-          { loader: 'ts-loader', options: { happyPackMode: true } }
-        ]
+        use: ['cache-loader', 'thread-loader', 'babel-loader?cacheDirectory', { loader: 'ts-loader', options: { happyPackMode: true } }]
       },
       // Import Json File.
       {
