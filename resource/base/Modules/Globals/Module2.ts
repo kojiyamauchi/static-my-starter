@@ -15,6 +15,6 @@ export default class Module2 {
   }
 
   public core(): void {
-    console.log(this.letter)
+    console.info(this.letter)
   }
 }
