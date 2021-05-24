@@ -6,7 +6,9 @@ import webpack from 'webpack'
 import path from 'path'
 import glob from 'glob'
 import ForkTsChecker from 'fork-ts-checker-webpack-plugin'
-import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
+import ForkTsCheckerNotifierWebpackPlugin from 'fork-ts-checker-notifier-webpack-plugin'
+import ESLintPlugin from 'eslint-webpack-plugin'
+import WebpackNotifierPlugin from 'webpack-notifier'
 
 // Setting Multiple Entry Points for Static Website.
 const baseDir = './resource/base/'
@@ -57,13 +59,6 @@ module.exports = {
   // Core Setting.
   module: {
     rules: [
-      // ES Lint.
-      {
-        enforce: 'pre',
-        test: /\.(js|ts)$/,
-        exclude: /node_modules/,
-        use: 'eslint-loader'
-      },
       // ECMA.
       {
         test: /\.js$/,
@@ -115,8 +110,12 @@ module.exports = {
         }
       }
     }),
-    // Notify Desktop When a Compile Error.
-    new WebpackBuildNotifierPlugin({ suppressSuccess: 'initial' })
+    // Notify Desktop When a TypeScript Error.
+    new ForkTsCheckerNotifierWebpackPlugin({ title: 'TypeScript' }),
+    // ESLint on webpack.
+    new ESLintPlugin({ files: [path.resolve(__dirname, '../resource/**/*.{ts,tsx,js,jsx}')], failOnWarning: true }),
+    // Notify Desktop When a ESLint or Webpack Build Error.
+    new WebpackNotifierPlugin({ title: 'ESLint or Webpack Build' })
   ],
 
   // Setting for Warning on Terminal.

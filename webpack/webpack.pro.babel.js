@@ -25,7 +25,7 @@ export default merge(webpackBase, {
       new TerserPlugin({
         terserOptions: {
           compress: {
-            // Delete console.log(), When Minify of JS File.
+            // Delete console.***(), When Minify of JS File.
             drop_console: true
           }
         }
