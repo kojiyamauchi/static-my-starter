@@ -1,0 +1,5 @@
+./**/*.ts:
+  - prettier --write
+  - eslint --fix --max-warnings 0
+./**/*.{js,jsx}: prettier --write
+resource/**/*.scss: stylelint --fix

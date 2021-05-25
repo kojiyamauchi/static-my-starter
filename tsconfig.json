@@ -33,9 +33,7 @@
 
   },
   "include": [
-    "resource/base/**/*",
-    "resource/types/**/*",
-    "resource/tests/**/*"
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules"
