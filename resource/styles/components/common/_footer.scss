@@ -8,7 +8,7 @@
   width: 100%;
   padding: 0 0 20px;
 
-  @include mixins.isLargeMobile {}
+  @include mixins.aboveLargeMobile {}
 
   // scoped.
 
@@ -16,7 +16,7 @@
     font-family: Lobster, cursive;
     font-size: 1.5em;
 
-    @include mixins.isLargeMobile {
+    @include mixins.aboveLargeMobile {
       font-size: 2.4em
     }
 

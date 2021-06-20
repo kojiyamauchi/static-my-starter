@@ -9,7 +9,7 @@
   padding: 50px 0 0;
   margin: 0 0 40px 0;
 
-  @include mixins.isLargeMobile {}
+  @include mixins.aboveLargeMobile {}
 
   // scoped.
 
@@ -17,7 +17,7 @@
     font-size: 3em;
     font-weight: 300;
 
-    @include mixins.isLargeMobile {
+    @include mixins.aboveLargeMobile {
       font-size: 5.6em
     }
 

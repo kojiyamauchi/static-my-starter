@@ -1,42 +1,37 @@
 @charset "UTF-8";
-@use "../constants" as const;
+@use "constants" as const;
 
-@mixin isSmallMobile {
-  @media (min-width: #{const.$SMALL_MOBILE_WIDTH}) {
+@mixin aboveSmallMobile {
+  @media screen and (min-width: #{const.$SMALL_MOBILE_BREAK_POINT}) {
     @content;
   }
 }
-@mixin isMobile {
-  @media (min-width: #{const.$MOBILE_WIDTH}) {
+@mixin aboveMiddleMobile {
+  @media screen and (min-width: #{const.$MIDDLE_MOBILE_BREAKPOINT}) {
     @content;
   }
 }
-@mixin isLargeMobile {
-  @media (min-width: #{const.$LARGE_MOBILE_WIDTH}) {
+@mixin aboveLargeMobile {
+  @media screen and (min-width: #{const.$LARGE_MOBILE_BREAK_POINT}) {
     @content;
   }
 }
-@mixin isTablet {
-  @media (min-width: #{const.$TABLET_WIDTH}) {
+@mixin aboveTablet {
+  @media screen and (min-width: #{const.$TABLET_BREAK_POINT}) {
     @content;
   }
 }
-@mixin isDesktop {
-  @media (min-width: #{const.$DESKTOP_WIDTH}) {
+@mixin aboveLaptop {
+  @media screen and (min-width: #{const.$LAPTOP_BREAK_POINT}) {
     @content;
   }
 }
-@mixin isLargeDesktop {
-  @media (min-width: #{const.$LARGE_DESKTOP_WIDTH}) {
+@mixin justDesktop {
+  @media screen and (min-width: #{const.$DESKTOP_WIDTH}) {
     @content;
   }
 }
-@mixin isExtraLargeDesktop {
-  @media (min-width: #{const.$EXTRA_LARGE_DESKTOP_WIDTH}) {
-    @content;
-  }
-}
-@mixin isCustomOrderMin($ORDER_WIDTH) {
+@mixin customOrderMin($ORDER_WIDTH) {
   @media screen and (min-width: $ORDER_WIDTH) {
     @content;
   }

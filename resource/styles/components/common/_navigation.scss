@@ -9,7 +9,7 @@
   padding: 0 20px;
   margin: 0 auto;
 
-  @include mixins.isLargeMobile {
+  @include mixins.aboveLargeMobile {
     width: 60%;
     padding: 0;
   }
@@ -18,7 +18,7 @@
 
   .navi-list {
 
-    @include mixins.isLargeMobile {}
+    @include mixins.aboveLargeMobile {}
 
   }
 
@@ -26,7 +26,7 @@
     font-size: 1.375em;
     font-weight: 300;
 
-    @include mixins.isLargeMobile {
+    @include mixins.aboveLargeMobile {
       font-size: 2.2em
     }
 

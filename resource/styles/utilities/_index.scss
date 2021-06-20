@@ -16,7 +16,7 @@
 .is-desktop {
   display: none;
 }
-@include mixins.isLargeMobile {
+@include mixins.aboveLargeMobile {
   .is-mobile {
     display: none;
   }
@@ -29,7 +29,7 @@
     display: block;
   }
 }
-@include mixins.isTablet {
+@include mixins.aboveTablet {
   .is-mobile {
     display: none;
   }
