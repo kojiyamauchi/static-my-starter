@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@use "constants" as const;
+@use "../constants" as const;
 
 @mixin aboveSmallMobile {
   @media screen and (min-width: #{const.$SMALL_MOBILE_BREAK_POINT}) {
