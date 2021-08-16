@@ -25,11 +25,10 @@ import webpackStream from 'webpack-stream'
 import webpackDev from './webpack/webpack.dev.babel'
 import webpackPro from './webpack/webpack.pro.babel'
 // For Style.
-import sass from 'gulp-sass'
-import sassCompiler from 'sass'
+import gulpSass from 'gulp-sass'
+import dartSass from 'sass'
 import stylelint from 'gulp-stylelint'
 import sassGlob from 'gulp-sass-glob'
-import fibers from 'fibers'
 import postCss from 'gulp-postcss'
 import autoprefixer from 'autoprefixer'
 import fixFlexBugs from 'postcss-flexbugs-fixes'
@@ -58,7 +57,7 @@ import { exec } from 'child_process'
 import browserSync from 'browser-sync'
 
 // Setup.
-sass.compiler = sassCompiler
+const sass = gulpSass(dartSass)
 const setup = {
   ecmas: {
     in: './resource/base/**/*',
@@ -126,7 +125,7 @@ export const onSass = () => {
     .pipe(plumber({ errorHandler: notify.onError({ message: 'SCSS Compile Error: <%= error.message %>', onLast: true }) }))
     .pipe(stylelint({ reporters: [{ formatter: 'string', console: true }] }))
     .pipe(sassGlob({ ignorePaths: setup.styles.globIgnore }))
-    .pipe(sass({ fiber: fibers, outputStyle: 'expanded' }))
+    .pipe(sass.sync({ outputStyle: 'expanded' }))
     .pipe(postCss(setup.styles.postCssLayoutFix))
     .pipe(dest(setup.styles.outScss, { sourcemaps: '../maps' }))
 }
