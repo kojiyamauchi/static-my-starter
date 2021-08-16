@@ -126,7 +126,7 @@
     "clean": "gulp onClean && touch delivery/index.html",
     "jest": "jest --passWithNoTests",
     "check-pkg": "ncu",
-    "update-pkg": "ncu '/^(?!(add-module-name|@add-module-name)).*$/' -u",
+    "update-pkg": "ncu '/^(?!(gulp-imagemin|@add-module-name)).*$/' -u",
     "re-install": "rm yarn.lock && rm -rf node_modules && yarn install"
   }
 }
