@@ -19,7 +19,7 @@ jobs:
       - name: Execution Environment for Node
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Set Env
         run: |
           echo "LAUNCH_ESLINT=${LAUNCH_ESLINT}" >> $GITHUB_ENV
@@ -67,7 +67,7 @@ jobs:
       - name: Execution Environment for Node
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Set Env
         run: echo "LAUNCH_BUILD=${LAUNCH_BUILD}" >> $GITHUB_ENV
       - name: Get Yarn Cache Directory
