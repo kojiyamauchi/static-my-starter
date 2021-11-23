@@ -2,7 +2,7 @@ name: CI for Preview
 on:
   pull_request:
     types: synchronize
-    branches: master
+    branches: main
 
 env:
   LAUNCH_ESLINT: on # Launch ESLint. [ on, off ]
