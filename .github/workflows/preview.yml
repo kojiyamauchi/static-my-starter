@@ -2,7 +2,7 @@ name: Preview
 on:
   pull_request:
     types: closed
-    branches: master
+    branches: main
 
 env:
   LAUNCH_BUILD: on # Launch Build. [ on, off ]
