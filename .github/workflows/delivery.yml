@@ -51,27 +51,34 @@ jobs:
         if: env.LAUNCH_BUILD == 'on'
         run: yarn build
       - name: Clean Delivery Directory
-        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE != 'ftp'
+        if: env.LAUNCH_DEPLOY == 'on'
         run: rm delivery/.gitkeep
-      - name: Deploy GitHub Pages / Netlify
-        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE != 'ftp'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: master
-          publish_dir: ./delivery
-      - name: Preparation of Deploy by FTP
-        if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'ftp'
-        run: git restore yarn.lock
       - name: Deploy FTP
         if: env.LAUNCH_DEPLOY == 'on' && env.DEPLOY_TYPE == 'ftp'
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          ftp-server: ${{ secrets.FTP_SERVER }}
-          ftp-username: ${{ secrets.FTP_USER }}
-          ftp-password: ${{ secrets.FTP_PASS }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: delivery/
-          git-ftp-args: --remote-root ${{ secrets.FTP_REMOTE_ROOT }} --all
+          server-dir: ${{ secrets.FTP_REMOTE_ROOT }}
+      - name: Deploy to Product Branch
+        if: env.LAUNCH_DEPLOY == 'on'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: product
+          publish_dir: ./delivery
+      - name: Preparation for Copy to Main Branch
+        if: env.LAUNCH_DEPLOY == 'on'
+        run: npx rimraf delivery/* && touch delivery/.gitkeep
+      - name: Copy to Main Branch
+        if: env.LAUNCH_DEPLOY == 'on'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: main
+          publish_dir: ./
 
   report:
     name: Done's Report
