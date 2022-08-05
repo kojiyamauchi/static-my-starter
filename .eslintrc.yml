@@ -13,11 +13,11 @@ parserOptions:
   sourceType: module
   ecmaFeatures:
     jsx: true
-  extraFileExtensions: '.vue'
 plugins:
   - '@typescript-eslint'
   - import
   - jest
+  - simple-import-sort
 settings:
   # Import webpack Alias Setting, Linting for 'import/no-unresolved'.
   'import/resolver':
@@ -70,4 +70,6 @@ rules:
   'spaced-comment':
     - error
     - always
+  'simple-import-sort/imports': error
+  'simple-import-sort/exports': error
   '@typescript-eslint/ban-ts-comment': off

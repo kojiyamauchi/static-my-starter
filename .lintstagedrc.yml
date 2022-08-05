@@ -3,3 +3,4 @@
   - eslint --fix --max-warnings 0
 ./**/*.{js,jsx}: prettier --write
 resource/**/*.scss: stylelint --fix
+./**/*: cspell --dot --no-must-find-files
