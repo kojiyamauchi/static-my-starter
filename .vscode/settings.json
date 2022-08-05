@@ -9,5 +9,9 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
-  "[scss]": { "editor.formatOnSave": false }
+  "[scss]": {
+    "editor.formatOnSave": false
+  },
+  "stylelint.validate": ["css", "scss"],
+  "cSpell.enabled": true
 }
