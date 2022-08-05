@@ -5,46 +5,82 @@ on:
     branches: develop
 
 env:
+  NODE_VERSION: 16.x
+  LAUNCH_CSPELL: off # Launch CSpell. [ on, off ]
   LAUNCH_ESLINT: off # Launch ESLint. [ on, off ]
-  LAUNCH_STYLELINT: off # Launch stylelint. [ on, off ]
+  LAUNCH_STYLELINT: off # Launch Stylelint. [ on, off ]
+  LAUNCH_TYPECHECK: off # Launch tsc. [ on, off ]
   LAUNCH_JEST: off # Launch Jest. [ on, off ]
   LAUNCH_BUILD: off # Launch Build. [ on, off ]
 
 jobs:
-  eslint-and-stylelint-and-jest:
-    name: ESLint & stylelint & Jest
+  setup:
+    name: Setup Module
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Execution Environment for Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-      - name: Set Env
-        run: |
-          echo "LAUNCH_ESLINT=${LAUNCH_ESLINT}" >> $GITHUB_ENV
-          echo "LAUNCH_STYLELINT=${LAUNCH_STYLELINT}" >> $GITHUB_ENV
-          echo "LAUNCH_JEST=${LAUNCH_JEST}" >> $GITHUB_ENV
-          if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
-          then
-              echo "FILE_EXISTS=on" >> $GITHUB_ENV
-          else
-              echo "FILE_EXISTS=off" >> $GITHUB_ENV
-          fi
-        shell: bash
-      - name: Get Yarn Cache Directory
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+          node-version: ${{ env.NODE_VERSION }}
       - name: Cache Node Modules
-        uses: actions/cache@v2
+        id: node_modules_cache_id
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-
       - name: Install Dependencies
         run: yarn
+
+  cspell:
+    name: CSpell
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      - name: Do CSpell
+        if: env.LAUNCH_CSPELL == 'on'
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          yarn cspell --dot --no-must-find-files "**/*" \
+          | reviewdog -level=warning -efm="%f:%l:%c - %m" -reporter=github-pr-review
+      - name: Displayed CSpell Failure on Checks
+        if: env.LAUNCH_CSPELL == 'on'
+        run: yarn cspell --dot --no-must-find-files "**/*"
+
+  eslint:
+    name: ESlint
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Do ESLint
         if: env.LAUNCH_ESLINT == 'on'
         uses: reviewdog/action-eslint@v1
@@ -55,45 +91,116 @@ jobs:
       - name: Displayed ESLINT Failure on Checks
         if: env.LAUNCH_ESLINT == 'on'
         run: yarn eslint 'resource/**/*.{ts,js}' --max-warnings 0
-      - name: Do stylelint
+
+  stylelint:
+    name: Stylelint
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - name: Do Stylelint
         if: env.LAUNCH_STYLELINT == 'on'
         uses: reviewdog/action-stylelint@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           stylelint_input: 'resource/**/*.scss'
-      - name: Displayed stylelint Failure on Checks
+      - name: Displayed Stylelint Failure on Checks
         if: env.LAUNCH_STYLELINT == 'on'
         run: yarn stylelint 'resource/**/*.scss'
+
+  typecheck:
+    name: Type Check
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      # Currently, tsc && reviewdog is will not display properly in conversation review.
+      - name: Do Type Check
+        if: env.LAUNCH_TYPECHECK == 'on'
+        uses: EPMatt/reviewdog-action-tsc@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+          fail_on_error: true
+          filter_mode: nofilter
+      # - name: Displayed Tsc Failure on Checks
+      #   if: env.LAUNCH_TYPECHECK == 'on'
+      #   run: |
+      #     yarn tsc --noEmit
+
+  jest:
+    name: Jest
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Env
+        run: |
+          if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
+          then
+              echo "FILE_EXISTS=on" >> $GITHUB_ENV
+          else
+              echo "FILE_EXISTS=off" >> $GITHUB_ENV
+          fi
+        shell: bash
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Execution Environment for Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
       - name: Do Jest
         if: env.LAUNCH_JEST == 'on' && env.FILE_EXISTS == 'on'
         run: yarn jest
 
-  build-test:
+  build:
     name: Build Test
-    needs: eslint-and-stylelint-and-jest
+    needs:
+      - setup
+      - cspell
+      - eslint
+      - stylelint
+      - typecheck
+      - jest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Execution Environment for Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-      - name: Set Env
-        run: echo "LAUNCH_BUILD=${LAUNCH_BUILD}" >> $GITHUB_ENV
-      - name: Get Yarn Cache Directory
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Node Modules
-        uses: actions/cache@v2
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore Modules
+        uses: actions/cache@v3
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install Dependencies
-        run: yarn
-      - name: Do Build
+          path: node_modules
+          key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - name: Do Build Test
         if: env.LAUNCH_BUILD == 'on'
         run: yarn build
