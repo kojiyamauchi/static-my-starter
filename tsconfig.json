@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     "strict": true,
     "alwaysStrict": true,
     "noEmitOnError": true,
@@ -17,7 +16,8 @@
 
     "target": "esnext",
     "module": "esnext",
-    "lib": [ "esnext", "dom" ],
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "allowJs": true,
     "checkJs": true,
@@ -29,13 +29,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "outDir": "./delivery/assets/js",
-    "paths": { "@/*": [ "./resource/base/*" ] }
-
+    "paths": { "@/*": ["./resource/base/*"] }
   },
-  "include": [
-    "**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }
