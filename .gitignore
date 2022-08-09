@@ -3,7 +3,6 @@ delivery/*
 resource/materials/css
 resource/materials/maps
 resource/materials/images/*.webp
-yarn.lock
 node_modules/
 .history/
 .DS_Store
