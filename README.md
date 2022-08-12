@@ -10,10 +10,10 @@ Static My Starter.
 
 - Initialize package.json
   - -> `yarn init`
+- Setup. ( `rm -rf .git` && `touch delivery/index.html`)
+  - -> `yarn setup` && `git init`
 - Install All Modules.
   - -> `yarn` or `yarn install`
-- Setup. ( `rm -rf .git` && `touch delivery/index.html`)
-  - -> `yarn setup`
 - Development.
   - -> `yarn dev`
 - Build.
@@ -28,7 +28,11 @@ Static My Starter.
       - -> `Protect matching branches`
         - Check `Require status checks to pass before merging`
         - Check `Require branches to be up to date before merging`
-        - Check `ESLint & stylelint & Jest`
+        - Check `CSpell`
+        - Check `ESLint`
+        - Check `Stylelint`
+        - Check `Type Check`
+        - Check `Jest`
         - Check `Build Test`
 
 ー
@@ -61,31 +65,6 @@ resource
 |
 |- /materials -> JSON / Images / Favicons / etc...
 ```
-
-ー
-
-## 🍟 Continuous Integration.
-
-- When Commit & Push to the Pull Request, ( Only Pull Request to `develop` Branch )
-  - When There is a File Containing Test Code in `resource/tests` Directory, Jest Will Launch.
-  - Statically Analyze Code with ESLint && stylelint. ( Before That, Husky & Lint Staged also Uses ESLint && stylelint 💣 )
-  - Test the Build at Every Commit.
-
-Launches Jest & ESLint & Test Build in `.github/workflows/ci.yml`
-
-ー
-
-## 🍟 Build & Deployment. ( Auto Build & Auto Deployment on GitHub )
-
-- Use GitHub Actions. ( Deployment for GitHub Pages or Netlify or FTP )
-  - When Pull Requests to the `develop` Branch are Closed & Merged,  
-    It Will Auto Build in `delivery` Directory of the Corresponding Branch.
-  - Contents of `delivery` Directory are Deployed to `master` Branch.
-  - Use GitHub Pages. -> Displayed on GitHub Pages.
-  - Use Netlify. -> Deploys via Netlify.
-  - Use FTP. -> Deploys via FTP.
-
-Choose Which Type of Deployment in `.github/workflows/delivery.yml`
 
 ー
 
