@@ -155,15 +155,6 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Set Env
-        run: |
-          if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
-          then
-              echo "FILE_EXISTS=on" >> $GITHUB_ENV
-          else
-              echo "FILE_EXISTS=off" >> $GITHUB_ENV
-          fi
-        shell: bash
       - name: Checkout
         uses: actions/checkout@v3
       - name: Execution Environment for Node
@@ -175,6 +166,15 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node-v${{ env.NODE_VERSION }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+      - name: Set Env
+        run: |
+          if ls resource/tests/*.test.ts > /dev/null 2>&1 || ls resource/tests/*.test.js > /dev/null 2>&1
+          then
+              echo "FILE_EXISTS=on" >> $GITHUB_ENV
+          else
+              echo "FILE_EXISTS=off" >> $GITHUB_ENV
+          fi
+        shell: bash
       - name: Do Jest
         if: env.LAUNCH_JEST == 'on' && env.FILE_EXISTS == 'on'
         run: yarn jest
