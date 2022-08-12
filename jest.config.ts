@@ -1,6 +1,7 @@
 import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
+  testEnvironment: 'jest-environment-jsdom',
   moduleFileExtensions: ['ts', 'js'],
   moduleNameMapper: {
     '^@/(.+)': '<rootDir>/resource/base/$1'
